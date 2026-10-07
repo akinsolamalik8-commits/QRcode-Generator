@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>smart QR code Generator</title>
+    <link rel="shortcut icon" href="qr.png" type="image/x-icon">
+    <script src="https://cdn.jsdelivr.net/npm/qrcodejs/qrcode.min.js"></script>
+    <style>
+        *{
+            box-sizing: border-box;
+        }
+        body{
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: start;
+            font-family: Arial, sans-serif;
+            background: #033240;
+        }
+        .card{
+            width: 360px;
+            padding: 30px;
+            margin-top: 2rem;
+            text-align: center;
+            background: #fff;
+            border-radius: 20px;
+            box-shadow: 0px 20px 50px #0005
+        }
+        h2{
+            margin-bottom: 10px;
+        }
+        p{
+            color:#777;
+            margin-bottom: 20px;
+        }
+        input{
+            width: 100%;
+            padding: 10px;
+            /* margin-bottom: 20px; */
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            outline: none;
+            font-size: 16px;
+        }
+        button{
+            width: 100%;
+            padding: 10px;
+            margin-top: 20px;
+            border: none;
+            outline: none;
+            background: #033240;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+        #qrcode{
+            margin: 25px auto 10px;
+            width:fit-content;
+        }
+        .show{
+            animation: pop 0.5s ease;
+        }
+        @keyframes pop {
+            from {
+                transform: scale(0);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+        #download{
+            background: #0a4d68;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+
+    <h2>smart QR code Generator</h2>
+
+    <p>Turn any link into a QR code</p>
+
+    <input type="url"  id="link" placeholder="https://example.com" required>
+
+    <button onclick="generateQR()"> Generate QR Code</button>
+
+    <div id="qrcode"></div> 
+
+    <button id="download" onclick=" downloadQR()"> Download QR Code</button>
+    </div>
+    <script>
+        function generateQR() {
+            const link = document.getElementById("link").value;
+
+            const qr = document.getElementById("qrcode");
+
+            const download = document.getElementById("download");
+
+            if (!link) return alert("Enter a link first");
+
+            qr.innerHTML = "";
+            qr.className = "show";
+
+            new QRCode(qr, link);
+
+            download.style.display = "block";
+        }
+
+        function downloadQR() {
+            const img= document.
+            querySelector("#qrcode img");
+
+            const link = document.createElement("a");
+
+            link.href = img.src;
+            link.download = "qrcode.png";
+            link.click();
+        }
+    </script>
+</body>
+</html>
